@@ -5,9 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 public class TodoListActivity extends Activity implements AdapterView.OnItemClickListener {
+
+    private static final String KEY_ITEMS = "key.items";
 
     private ListView mTodoList;
     private TodoAdapter mTodoAdapter;
@@ -18,7 +23,7 @@ public class TodoListActivity extends Activity implements AdapterView.OnItemClic
         setContentView(R.layout.layout_activity_list);
 
         mTodoList = (ListView) findViewById(R.id.list);
-        View footer = View.inflate(this, R.layout.panel_list_footer, mTodoList);
+        View footer = View.inflate(this, R.layout.panel_list_footer, null);
         footer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,12 +36,18 @@ public class TodoListActivity extends Activity implements AdapterView.OnItemClic
         mTodoAdapter = new TodoAdapter();
         mTodoList.setAdapter(mTodoAdapter);
         mTodoList.setOnItemClickListener(this);
+
+        if (savedInstanceState != null) {
+            ArrayList<TodoItem> todoItems = (ArrayList<TodoItem>) savedInstanceState.getSerializable(KEY_ITEMS);
+            mTodoAdapter.appendAll(todoItems);
+        }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TodoItem clickedItem = (TodoItem) mTodoAdapter.getItem(position);
         clickedItem.complete();
+        ((CheckBox) view.findViewById(R.id.checkbox)).setChecked(true);
     }
 
     @Override
@@ -45,5 +56,11 @@ public class TodoListActivity extends Activity implements AdapterView.OnItemClic
             String itemText = data.getStringExtra(CreateItemActivity.EXTRA_ITEM);
             mTodoAdapter.appendItem(new TodoItem(itemText, false));
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(KEY_ITEMS, mTodoAdapter.getContents());
     }
 }

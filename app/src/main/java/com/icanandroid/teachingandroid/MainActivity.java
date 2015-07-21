@@ -1,5 +1,6 @@
 package com.icanandroid.teachingandroid;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -30,6 +31,13 @@ public class MainActivity extends AppCompatActivity {
                 String name = mNameText.getText().toString();
                 // TODO: Do some input validation here
                 mHelloLabel.setText("Hello, " + name + "!");
+            }
+        });
+
+        findViewById(R.id.todo_list_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TodoListActivity.class));
             }
         });
     }

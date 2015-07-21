@@ -3,10 +3,11 @@ package com.icanandroid.teachingandroid;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TodoAdapter extends BaseAdapter {
 
@@ -34,10 +35,10 @@ public class TodoAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = View.inflate(parent.getContext(), R.layout.panel_list_item, parent);
+            convertView = View.inflate(parent.getContext(), R.layout.panel_list_item, null);
             convertView.setTag(new TodoItemViewHolder(
                     (TextView) convertView.findViewById(R.id.item_text),
-                    (ImageButton) convertView.findViewById(R.id.checkbox)));
+                    (CheckBox) convertView.findViewById(R.id.checkbox)));
         }
 
         TodoItemViewHolder viewHolder = (TodoItemViewHolder) convertView.getTag();
@@ -51,19 +52,30 @@ public class TodoAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void appendAll(List<TodoItem> newItems) {
+        mTodoItems.addAll(newItems);
+        notifyDataSetChanged();
+    }
+
+    public ArrayList<TodoItem> getContents() {
+        return mTodoItems;
+    }
+
     private static class TodoItemViewHolder {
 
         private TextView mItem;
-        private ImageButton mCheckbox;
+        private CheckBox mCheckbox;
 
-        private TodoItemViewHolder(TextView item, ImageButton checkbox) {
+        private TodoItemViewHolder(TextView item, CheckBox checkbox) {
             mItem = item;
             mCheckbox = checkbox;
+
+            mCheckbox.setFocusable(false);
         }
 
         private void bind(TodoItem todoItem) {
             mItem.setText(todoItem.getName());
-            mCheckbox.setSelected(todoItem.isDone());
+            mCheckbox.setChecked(todoItem.isDone());
         }
     }
 }

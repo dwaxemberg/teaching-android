@@ -1,6 +1,9 @@
 package com.icanandroid.teachingandroid;
 
-public class TodoItem {
+import java.io.Serializable;
+
+public class TodoItem implements Serializable {
+
     private String mName;
     private boolean mDone;
 
