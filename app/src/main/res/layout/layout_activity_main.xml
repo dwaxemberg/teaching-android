@@ -16,13 +16,33 @@
         android:text="@string/hello_android"
         android:textAppearance="@style/CoolTextBoxes" />
 
-    <Button
-        style="@style/CoolButtons"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/hello_text"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/button_top_margin"
-        android:text="@string/submit" />
+        android:orientation="horizontal">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/name"
+            android:textAppearance="@style/CoolTextBoxes" />
+
+        <EditText
+            android:id="@+id/name_box"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/submit_button"
+            style="@style/CoolButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/button_left_margin"
+            android:text="@string/submit" />
+    </LinearLayout>
 </RelativeLayout>
