@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText mNameText;
     private Button mSubmitButton;
     private TextView mHelloLabel;
+    private View mTodoListButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         mNameText = (EditText) findViewById(R.id.name_box);
         mSubmitButton = (Button) findViewById(R.id.submit_button);
         mHelloLabel = (TextView) findViewById(R.id.hello_text);
+        mTodoListButton = findViewById(R.id.todo_list_button);
 
         mSubmitButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -34,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.todo_list_button).setOnClickListener(new View.OnClickListener() {
+        mTodoListButton.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, TodoListActivity.class));
             }
         });
