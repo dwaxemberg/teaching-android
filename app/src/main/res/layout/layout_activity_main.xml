@@ -47,4 +47,13 @@
             android:layout_marginLeft="@dimen/button_left_margin"
             android:text="@string/submit" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/todo_list_button"
+        style="@style/CoolButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="10dp"
+        android:text="@string/show_the_list" />
 </LinearLayout>
