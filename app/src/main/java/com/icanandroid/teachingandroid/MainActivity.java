@@ -4,13 +4,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private EditText mNameText;
+    private Button mSubmitButton;
+    private TextView mHelloLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity_main);
+        mNameText = (EditText) findViewById(R.id.name_box);
+        mSubmitButton = (Button) findViewById(R.id.submit_button);
+        mHelloLabel = (TextView) findViewById(R.id.hello_text);
+
+        mSubmitButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View button) {
+                String name = mNameText.getText().toString();
+                // TODO: Do some input validation here
+                mHelloLabel.setText("Hello, " + name + "!");
+            }
+        });
     }
 
     @Override
