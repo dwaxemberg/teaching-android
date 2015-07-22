@@ -42,7 +42,9 @@ public class TodoAdapter extends BaseAdapter {
         }
 
         TodoItemViewHolder viewHolder = (TodoItemViewHolder) convertView.getTag();
-        viewHolder.bind((TodoItem) getItem(position));
+        TodoItem item = mTodoItems.get(position);
+        viewHolder.mItem.setText(item.getName());
+        viewHolder.mCheckbox.setChecked(item.isDone());
 
         return convertView;
     }
