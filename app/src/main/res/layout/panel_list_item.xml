@@ -21,4 +21,12 @@
         android:gravity="center"
         android:textSize="20sp" />
 
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/image_size"
+        android:layout_height="@dimen/image_size"
+        android:layout_alignBottom="@id/item_text"
+        android:layout_alignTop="@id/item_text"
+        android:layout_toRightOf="@id/item_text" />
+
 </RelativeLayout>

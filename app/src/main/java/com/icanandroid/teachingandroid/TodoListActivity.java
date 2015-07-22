@@ -8,6 +8,8 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class TodoListActivity extends Activity implements AdapterView.OnItemClickListener {
@@ -33,7 +35,7 @@ public class TodoListActivity extends Activity implements AdapterView.OnItemClic
         });
 
         mTodoList.addFooterView(footer);
-        mTodoAdapter = new TodoAdapter();
+        mTodoAdapter = new TodoAdapter(Glide.with(this));
         mTodoList.setAdapter(mTodoAdapter);
         mTodoList.setOnItemClickListener(this);
 
@@ -54,7 +56,8 @@ public class TodoListActivity extends Activity implements AdapterView.OnItemClic
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             String itemText = data.getStringExtra(CreateItemActivity.EXTRA_ITEM);
-            mTodoAdapter.appendItem(new TodoItem(itemText, false));
+            String corgi = data.getStringExtra(CreateItemActivity.EXTRA_CORGI);
+            mTodoAdapter.appendItem(new TodoItem(itemText, corgi, false));
         }
     }
 

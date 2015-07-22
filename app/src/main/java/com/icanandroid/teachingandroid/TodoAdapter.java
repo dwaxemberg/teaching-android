@@ -4,7 +4,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.RequestManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +15,11 @@ import java.util.List;
 public class TodoAdapter extends BaseAdapter {
 
     private ArrayList<TodoItem> mTodoItems;
+    private RequestManager mGlide;
 
-    public TodoAdapter() {
+    public TodoAdapter(RequestManager glide) {
         mTodoItems = new ArrayList<>();
+        mGlide = glide;
     }
 
     @Override
@@ -38,13 +43,17 @@ public class TodoAdapter extends BaseAdapter {
             convertView = View.inflate(parent.getContext(), R.layout.panel_list_item, null);
             convertView.setTag(new TodoItemViewHolder(
                     (TextView) convertView.findViewById(R.id.item_text),
-                    (CheckBox) convertView.findViewById(R.id.checkbox)));
+                    (CheckBox) convertView.findViewById(R.id.checkbox),
+                    (ImageView) convertView.findViewById(R.id.image)));
         }
 
         TodoItemViewHolder viewHolder = (TodoItemViewHolder) convertView.getTag();
         TodoItem item = mTodoItems.get(position);
         viewHolder.mItem.setText(item.getName());
         viewHolder.mCheckbox.setChecked(item.isDone());
+        mGlide.load(item.getCorgiUrl())
+                .crossFade()
+                .into(viewHolder.mCorgiImage);
 
         return convertView;
     }
@@ -67,17 +76,13 @@ public class TodoAdapter extends BaseAdapter {
 
         private TextView mItem;
         private CheckBox mCheckbox;
+        private ImageView mCorgiImage;
 
-        private TodoItemViewHolder(TextView item, CheckBox checkbox) {
+        private TodoItemViewHolder(TextView item, CheckBox checkbox, ImageView corgiImage) {
             mItem = item;
             mCheckbox = checkbox;
-
+            mCorgiImage = corgiImage;
             mCheckbox.setFocusable(false);
-        }
-
-        private void bind(TodoItem todoItem) {
-            mItem.setText(todoItem.getName());
-            mCheckbox.setChecked(todoItem.isDone());
         }
     }
 }

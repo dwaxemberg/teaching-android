@@ -13,6 +13,14 @@ public class CreateItemActivity extends Activity {
 
     public static int REQUEST_CODE = 123;
     public static String EXTRA_ITEM = "extra.item";
+    public static String EXTRA_CORGI = "extra.corgi_url";
+
+    private static final String[] CORGI_URLS = {
+            "https://secure.static.tumblr.com/1687a491d59689834536edd549fea8f9/ctpb9fo/gDsn12kik/tumblr_static_buisnesscorgi.jpg",
+            "http://www.shanalogic.com/wordpress/wp-content/uploads2/2015/03/anigif_enhanced-buzz-16494-1377022542-23_preview.gif",
+            "http://25.media.tumblr.com/tumblr_lcl1khUpo31qbwakso1_500.jpg",
+            "http://www.vh1.com/celebrity/bwe/images/2010/08/CORGI-JUMP.jpg"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +42,7 @@ public class CreateItemActivity extends Activity {
                 } else {
                     Intent todoIntent = getIntent();
                     todoIntent.putExtra(EXTRA_ITEM, todoText.getText().toString());
+                    todoIntent.putExtra(EXTRA_CORGI, CORGI_URLS[(int) (Math.random() * CORGI_URLS.length)]);
                     setResult(RESULT_OK, todoIntent);
                     finish();
                 }
